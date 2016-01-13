@@ -47,7 +47,7 @@ exports.webhook = function(request, response) {
         if (msg === 'subscribe' || msg === 'unsubscribe' || msg === 'start') {
             // If the user has elected to subscribe for messages, flip the bit
             // and indicate that they have done so.
-            subscriber.subscribed = msg === 'subscribe';
+            subscriber.subscribed = true;
             subscriber.save(function(err) {
                 if (err) {
                     return respond('We could not subscribe you - please try again.');
