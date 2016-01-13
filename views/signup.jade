@@ -1,0 +1,18 @@
+extends layout
+
+
+block content
+  h1 Add info
+
+  p.
+    We need some additional info.
+
+  form(action='/stripe', method='POST')
+    input(id='id', type='hidden', name='id', value=)
+    script(src='https://checkout.stripe.com/checkout.js', class='stripe-button', data-key='pk_test_OY3Pp6QZNpFEm1tqS1ZHae4r', data-shipping-address='', data-name="Taggist"
+    data-description='Set up account.', data-allow-remember-me='false', data-locale='auto')
+
+
+    script.
+      function getParameterByName(name) { name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]"); var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"), results = regex.exec(location.search); return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));}
+      document.getElementById("id").value = getParameterByName('id');
