@@ -4,8 +4,7 @@ var Subscriber = require('../models/Subscriber');
 var config = require('../config');
 var client = require('twilio')(config.accountSid, config.authToken);
 var stripe = require("stripe")("sk_test_bbKyV8oeeRwDL3fmrVb8UIkL");
-var plaid = require('plaid');
-var plaidClient = new plaid.Client(config.plaidClientID, config.plaidSecret, plaid.environments.tartan);
+
 
 // Map routes to controller functions
 module.exports = function(app) {
@@ -46,7 +45,10 @@ module.exports = function(app) {
 	// Handle form submission and send messages to subscribers
 	app.post('/message/send', message.sendMessages);
 
-	// /authenticate accepts the public_token and account_id from Link
+	var plaid = require('plaid');
+	var plaidClient = new plaid.Client(config.plaidClientID, config.plaidSecret, plaid.environments.tartan);
+
+	// authenticate accepts the public_token and account_id from Link
 	app.post('/authenticate', function(req, res) {
 	  var public_token = req.body.public_token;
 	  var account_id = req.body.account_id;
