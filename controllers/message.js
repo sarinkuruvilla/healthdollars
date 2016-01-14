@@ -84,8 +84,8 @@ exports.webhook = function(request, response) {
             var responseMessage = 'Available commands are: unsubscribe. If you unsubscribe by accident just text me \'start\' to resubscribe.';
             respond(responseMessage);
 
-        } else if (msg === 'buy' && subscriber.subscribed && typeof subscriber.stripe === 'undefined') {
-            var signupUrl = 'https://healthdollars-sta.herokuapp.com/signup?id=' + subscriber._id
+        } else if (msg === 'connect' && subscriber.subscribed && typeof subscriber.stripe === 'undefined') {
+            var signupUrl = 'https://healthdollars-sta.herokuapp.com/connect?id=' + subscriber._id
             var responseMessage = 'Update your info to continue: ' + signupUrl;
             respond(responseMessage);
 

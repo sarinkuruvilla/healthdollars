@@ -25,5 +25,9 @@ cfg.twilioNumber = process.env.TWILIO_NUMBER;
 // MONGOLAB_URI is for the MongoLab add-on for Heroku deployment
 cfg.mongoUrl = process.env.MONGOLAB_URI || process.env.MONGO_URL;
 
+// Plaid Integration
+cfg.plaidClientID = process.env.PLAID_CLIENT_ID;
+cfg.plaidSecret = process.env.PLAID_SECRET;
+
 // Export configuration object
 module.exports = cfg;
