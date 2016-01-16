@@ -27,13 +27,13 @@ module.exports = function(app) {
 	});
 
 	app.get('/connect', function(req, res) {
-		Subscriber.findById(req.query.id, function(err, sub) {
-			if (err || sub === 'undefined') {
-				res.send.status(500);
-			} else {
+		// Subscriber.findById(req.query.id, function(err, sub) {
+		// 	if (err || sub === 'undefined') {
+		// 		res.send.status(500);
+		// 	} else {
 				res.render('connect');
-			}
-		});
+		// 	}
+		// });
 	});
 
 	// app.get('/subscriber/:id', function(req, res) {

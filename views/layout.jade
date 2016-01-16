@@ -35,23 +35,7 @@ html(lang='en')
   body
 
 
-    //- Include page content
-    #main.container
-      // Display any error or informational messages
-      mixin messages(list)
-        each message in list
-          p= message
-
-      .message-list
-        if (errors && errors.length > 0)
-          .box.bg-danger
-            +messages(errors)
-
-        if (successes && successes.length > 0)
-          .box.bg-success
-            +messages(successes)
-
-      block content
+    block content
 
 
     // Include jQuery and Bootstrap scripts

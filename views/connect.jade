@@ -1,30 +1,45 @@
 extends layout
 
 block content
+  .container
+      .logo HealthDollars
+      h2 Connect your bank, credit and HSA account and HealthDollars will do the rest.
+      .dual-button
+        div
+          span.radio-button#sandboxLinkButton Sandbox Mode
+        div
+          span.radio-button#liveLinkButton Regular Mode
+      
+      script(src="https://cdn.plaid.com/link/stable/link-initialize.js")
+      
+      script.
+        var sandboxHandler = Plaid.create({
+          clientName: 'SUM',
+          env: 'tartan',
+          product: 'auth',
+          key: 'test_key',
+          onSuccess: function(token) {
+            window.location = '/accounts.html?public_token=' + token;
+          },
+        });
 
-	// A hidden input named public_token will be appended to this form once the user has completed the Link flow. Link will then submit the form, sending the public_token to your server.
-	form(id="some-id" method="POST" action="/authenticate")
+        var liveHandler = Plaid.create({
+          clientName: 'SUM',
+          env: 'tartan',
+          product: 'auth',
+          key: '{YOUR_PUBLIC_KEY}',
+          onSuccess: function(token) {
+            window.location = '/accounts.html?public_token=' + token;
+          },
+        });
 
-	// To use Link with longtail institutions on Connect, set thedata-long-tail attribute to 'true'. See the Parameter Reference for additional documentation.
-	script(src="https://cdn.plaid.com/link/stable/link-initialize.js" data-client-name="HealthDollars" data-form-id="some-id" data-key="test_key" data-product="connect" data-env="tartan" data-long-tail="true")
+        // Open the "Institution Select" view using the sandbox Link handler.
+        document.getElementById('sandboxLinkButton').onclick = function() {
+          sandboxHandler.open();
+        };
 
-
-	button(id="plaidLinkButton")
-		Open Plaid Link
-
-	script(src="https://cdn.plaid.com/link/stable/link-initialize.js")
-	script
-		var sandboxHandler = Plaid.create({
-		  env: 'tartan',
-		  clientName: 'Client Name',
-		  key: 'test_key',
-		  product: 'auth',
-		  onSuccess: function(public_token) {
-		    console.log(public_token);
-		  },
-		});
-
-		document.getElementById('plaidLinkButton').onclick = function() {
-		  // Trigger the "Institution Select" view
-		  sandboxHandler.open();
-		};
+        // Open the "Institution Select" view using the live Link handler.
+        document.getElementById('liveLinkButton').onclick = function() {
+          liveHandler.open();
+        };
+                  
