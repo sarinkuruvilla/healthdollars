@@ -12,7 +12,10 @@ var SubscriberSchema = new mongoose.Schema({
         default: false
     },
     stripe: {},
-    plaid: {}
+    plaid: {
+        access_token: String,
+        accounts: {}
+    }
 });
 
 // Static function to send a message to all current subscribers

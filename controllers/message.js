@@ -27,7 +27,7 @@ exports.webhook = function(request, response) {
                     return respond('We couldn\'t sign you up - try again.');
 
                 // We're signed up but not subscribed - prompt to subscribe
-                respond('Welcome to HealthDollars, a personal financial assistant to save you money on health care expenses. Get started, reply \'start\' to learn more.');
+                respond('Welcome to HealthDollars, a personal financial assistant to save you money on health care expenses. To start connect your primary account here: https://healthdollars-sta.herokuapp.com/connect?id=' );
             });
         } else {
             // For an existing user, process any input message they sent and

@@ -3,43 +3,13 @@ extends layout
 block content
   .container
       .logo HealthDollars
-      h2 Connect your bank, credit and HSA account and HealthDollars will do the rest.
-      .dual-button
-        div
-          span.radio-button#sandboxLinkButton Sandbox Mode
-        div
-          span.radio-button#liveLinkButton Regular Mode
+      h2 Connect your primary payment method and HealthDollars will do the rest.
       
-      script(src="https://cdn.plaid.com/link/stable/link-initialize.js")
-      
+      form(id="some-id", method="POST", action="/authenticate")
+        input(id='id', type='hidden', name='id', value=)
+
+      script(src="https://cdn.plaid.com/link/v2/stable/link-initialize.js", data-client-name="HealthDollars", data-form-id="some-id", data-key="test_key", data-product="auth", data-env="tartan")
+
       script.
-        var sandboxHandler = Plaid.create({
-          clientName: 'SUM',
-          env: 'tartan',
-          product: 'auth',
-          key: 'test_key',
-          onSuccess: function(token) {
-            window.location = '/accounts.html?public_token=' + token;
-          },
-        });
-
-        var liveHandler = Plaid.create({
-          clientName: 'SUM',
-          env: 'tartan',
-          product: 'auth',
-          key: '{YOUR_PUBLIC_KEY}',
-          onSuccess: function(token) {
-            window.location = '/accounts.html?public_token=' + token;
-          },
-        });
-
-        // Open the "Institution Select" view using the sandbox Link handler.
-        document.getElementById('sandboxLinkButton').onclick = function() {
-          sandboxHandler.open();
-        };
-
-        // Open the "Institution Select" view using the live Link handler.
-        document.getElementById('liveLinkButton').onclick = function() {
-          liveHandler.open();
-        };
-                  
+        function getParameterByName(name) { name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]"); var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"), results = regex.exec(location.search); return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));}
+        document.getElementById("id").value = getParameterByName('id');
