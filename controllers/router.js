@@ -51,7 +51,6 @@ module.exports = function(app) {
 	// authenticate accepts the public_token from Link
 	app.post('/authenticate', function(req, res) {
 	  var public_token = req.body.public_token;
-	  console.log(req.body);
 
 	  Subscriber.findById(req.body.id, function(err, sub) {
 			if (err || !sub) {
@@ -61,7 +60,8 @@ module.exports = function(app) {
 				plaidClient.exchangeToken(public_token, function(err, res) {
 					if (err != null) {
 				      // Handle error!
-				      return res.send('Error');
+				      res.send('Error');
+				      return;
 				    } else {
 					    // This is your Plaid access token - store somewhere persistent
 					    // The access_token can be used to make Plaid API calls to
