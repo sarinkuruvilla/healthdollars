@@ -108,7 +108,7 @@ module.exports = function(app) {
 						client.sendMessage({
 							to: sub.phone,
 							from: config.twilioNumber,
-							body: 'Your account is connected. You have ' + healthTransactions.length + ' eligible health transactions totaling $' + healthTransactionsSum'.'
+							body: 'Your account is connected. You have ' + healthTransactions.length + ' eligible health transactions totaling $' + healthTransactionsSum + '.'
 						});
 
 				    }
