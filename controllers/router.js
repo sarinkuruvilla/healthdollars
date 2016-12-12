@@ -105,11 +105,11 @@ module.exports = function(app) {
 
 
 					    //return message to user confirming connections
-						// client.sendMessage({
-						// 	to: sub.phone,
-						// 	from: config.twilioNumber,
-						// 	body: 'Your account is connected. Let me take a look if there are any eligible health transactions.'
-						// });
+						client.sendMessage({
+							to: sub.phone,
+							from: config.twilioNumber,
+							body: 'Your account is connected. You have ' + healthTransactions.length + ' eligible health transactions totaling $' + healthTransactionsSum'.'
+						});
 
 				    }
 				});
