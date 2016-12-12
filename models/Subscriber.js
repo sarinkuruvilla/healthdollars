@@ -14,7 +14,8 @@ var SubscriberSchema = new mongoose.Schema({
     stripe: {},
     plaid: {
         access_token: String,
-        accounts: {}
+        accounts: {},
+        transactions: []
     }
 });
 

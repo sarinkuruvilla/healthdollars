@@ -3,7 +3,7 @@ var message = require('./message');
 var Subscriber = require('../models/Subscriber');
 var config = require('../config');
 var client = require('twilio')(config.accountSid, config.authToken);
-var stripe = require("stripe")("sk_test_bbKyV8oeeRwDL3fmrVb8UIkL");
+var stripe = require("stripe")("sk_test_yfL2bu7haH59lplWhgjvJm9H");
 var plaid = require('plaid');
 var plaidClient = new plaid.Client(config.plaidClientID, config.plaidSecret, plaid.environments.tartan);
 
@@ -21,7 +21,7 @@ module.exports = function(app) {
 	app.get('/signup', function(req, res) {
 		Subscriber.findById(req.query.id, function(err, sub) {
 			if (err || sub === 'undefined') {
-				res.send.status(500);
+				res.status(500);
 			} else {
 				res.render('signup');
 			}
@@ -30,8 +30,8 @@ module.exports = function(app) {
 
 	app.get('/connect', function(req, res) {
 		Subscriber.findById(req.query.id, function(err, sub) {
-			if (err || sub === 'undefined') {
-				res.send.status(500);
+			if (err || sub === 'undefined' || !req.query.id) {
+				res.status(500);
 			} else {
 				res.render('connect');
 			}
@@ -77,7 +77,6 @@ module.exports = function(app) {
 					          // names, balances, and account and routing numbers.
 					          sub.plaid.accounts = authRes.accounts;
 					          sub.save();
-					          console.log(sub.plaid.accounts);
 
 					          // Return account data
 					          // res.json({accounts: accounts});
@@ -86,10 +85,26 @@ module.exports = function(app) {
 
 					    plaidClient.getConnectUser(res.access_token, {
 						}, function(err, response) {
-						  console.log(response);
+							sub.plaid.transactions = response.transactions;
+							sub.save();
 						});
 
+						var healthTransactions = [];
+						var healthTransactionsSum = 0;
 
+						sub.plaid.transactions.forEach(function(transaction) {
+							if(transaction.category_id >= 14000000 && transaction.category_id <= 14002020){
+								healthTransactions.push(transaction);
+								healthTransactionsSum += transaction.amount;
+							}
+							console.log(transaction.category_id);
+						});
+
+						console.log(healthTransactions);
+						console.log(healthTransactionsSum);
+
+
+					    //return message to user confirming connections
 						// client.sendMessage({
 						// 	to: sub.phone,
 						// 	from: config.twilioNumber,
