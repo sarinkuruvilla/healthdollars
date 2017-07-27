@@ -28,9 +28,9 @@ module.exports = function(app) {
 		});
 	});
 
-	app.get('/connect', function(req, res) {
-		Subscriber.findById(req.query.id, function(err, sub) {
-			if (err || sub === 'undefined' || !req.query.id) {
+	app.get('/connect/:id', function(req, res) {
+		Subscriber.findById(req.params.id, function(err, sub) {
+			if (err || sub === 'undefined' || !req.params.id) {
 				res.status(500);
 			} else {
 				res.render('connect');

@@ -1,5 +1,5 @@
 // For local development testing
-if (!process.env.NODE_ENV) require('./dotenv');
+if (!process.env.NODE_ENV) require('./.env');
 var http = require('http');
 var mongoose = require('mongoose');
 var config = require('./config');
