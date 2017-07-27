@@ -33,7 +33,7 @@ module.exports = function(app) {
 			if (err || sub === 'undefined' || !req.params.id) {
 				res.status(500);
 			} else {
-				res.render('connect');
+				res.render('connect', { id: req.params.id});
 			}
 		});
 	});

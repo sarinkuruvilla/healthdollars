@@ -25,9 +25,10 @@ exports.webhook = function(request, response) {
             newSubscriber.save(function(err, newSub) {
                 if (err || !newSub)
                     return respond('We couldn\'t sign you up - try again.');
+                
 
                 // We're signed up but not subscribed - prompt to subscribe
-                respond('Welcome to HealthDollars, a personal financial assistant to save you money on health care expenses. To start connect your primary account here: ' + req.protocol + '://' + req.get('host') + '/connect/' );
+                respond('Welcome to HealthDollars, a personal financial assistant to save you money on health care expenses. To start connect your primary account here: ' + request.protocol + '://' + request.get('host') + '/connect/' + newSub._id);
             });
         } else {
             // For an existing user, process any input message they sent and
@@ -85,7 +86,7 @@ exports.webhook = function(request, response) {
             respond(responseMessage);
 
         } else if (msg === 'connect' && subscriber.subscribed) {
-            var signupUrl = 'https://b93d9459.ngrok.io/connect?id=' + subscriber._id
+            var signupUrl = request.protocol + '://' + request.get('host') + '/connect/' + subscriber._id;
             var responseMessage = 'Update your info to continue: ' + signupUrl;
             respond(responseMessage);
 

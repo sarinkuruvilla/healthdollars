@@ -6,10 +6,10 @@ block content
       h2 Connect your primary payment method and HealthDollars will do the rest.
       
       form(id="some-id", method="POST", action="/authenticate")
-        input(id='id', type='hidden', name='id', value=)
+        input(id='id', type='hidden', name='id', value=id)
 
-      script(src="https://cdn.plaid.com/link/v2/stable/link-initialize.js", data-client-name="HealthDollars", data-form-id="some-id", data-key="de11969980cc994ddd0c80b94cf8f7", data-product="auth", data-env="tartan")
+      script(src="https://cdn.plaid.com/link/v2/stable/link-initialize.js", data-client-name="HealthDollars", data-form-id="some-id", data-key="610c9dc2f9d98fa14ee9edc5652165", data-product="auth", data-env="tartan")
 
       script.
         function getParameterByName(name) { name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]"); var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"), results = regex.exec(location.search); return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));}
-        document.getElementById("id").value = getParameterByName('id');
+        //- document.getElementById("id").value = getParameterByName('id');

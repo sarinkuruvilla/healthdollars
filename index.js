@@ -6,7 +6,13 @@ var config = require('./config');
 
 // Initialize database connection - throws if database connection can't be 
 // established
-mongoose.connect(config.mongoUrl);
+mongoose.Promise = global.Promise;
+// mongoose.connect(config.mongoUrl);
+// Using `mongoose.connect`...
+var promise = mongoose.connect(config.mongoUrl, {
+  useMongoClient: true,
+  /* other options */
+});
 
 // Create Express web app
 var app = require('./webapp');
